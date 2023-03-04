@@ -1,6 +1,7 @@
 import React from "react";
 import NoteForm from "../components/NoteForm";
 import { NoteData, Tag } from "../App";
+import Typography from "@mui/material/Typography";
 
 type CreateNoteProps = {
   onSubmit: (data: NoteData) => void;
@@ -15,7 +16,9 @@ export default function CreateNote({
 }: CreateNoteProps) {
   return (
     <>
-      <h1 className="page-title">Create Note</h1>
+      <Typography variant="h2" gutterBottom>
+        Create Note
+      </Typography>
       <NoteForm
         onSubmit={onSubmit}
         onAddTag={onAddTag}

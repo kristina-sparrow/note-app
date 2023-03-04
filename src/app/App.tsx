@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { v4 as uuidV4 } from "uuid";
-import CreateNote from "./pages/CreateNote";
 import Container from "@mui/material/Container";
+import CreateNote from "./pages/CreateNote";
+import NoteList from "./pages/NoteList";
 
 export type Note = {
   id: string;
@@ -34,6 +35,15 @@ export default function App() {
   const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
   const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
 
+  const notesWithTags = useMemo(() => {
+    return notes.map((note) => {
+      return {
+        ...note,
+        tags: tags.filter((tag) => note.tagIds.includes(tag.id)),
+      };
+    });
+  }, [notes, tags]);
+
   function onCreateNote({ tags, ...data }: NoteData) {
     setNotes((prevNotes) => {
       return [
@@ -47,10 +57,38 @@ export default function App() {
     setTags((prev) => [...prev, tag]);
   }
 
+  function updateTag(id: string, label: string) {
+    setTags((prevTags) => {
+      return prevTags.map((tag) => {
+        if (tag.id === id) {
+          return { ...tag, label };
+        } else {
+          return tag;
+        }
+      });
+    });
+  }
+
+  function deleteTag(id: string) {
+    setTags((prevTags) => {
+      return prevTags.filter((tag) => tag.id !== id);
+    });
+  }
+
   return (
-    <Container>
+    <Container maxWidth="md">
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
+        <Route
+          path="/"
+          element={
+            <NoteList
+              notes={notesWithTags}
+              availableTags={tags}
+              onUpdateTag={updateTag}
+              onDeleteTag={deleteTag}
+            />
+          }
+        />
         <Route
           path="/create"
           element={

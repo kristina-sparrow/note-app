@@ -33,23 +33,24 @@ export default function NoteForm({
     e.preventDefault();
     setTitleError(false);
     setMarkdownError(false);
+    const currentTitle = titleRef.current!.value;
+    const currentMarkdown = markdownRef.current!.value;
 
-    if (title == "") {
+    if (currentTitle == "") {
       setTitleError(true);
     }
-    if (markdown == "") {
+    if (currentMarkdown == "") {
       setMarkdownError(true);
     }
 
-    if (title && markdown) {
+    if (currentTitle && currentMarkdown) {
       onSubmit({
-        title: titleRef.current!.value,
-        markdown: markdownRef.current!.value,
+        title: currentTitle,
+        markdown: currentMarkdown,
         tags: selectedTags,
       });
+      navigate("..");
     }
-
-    navigate("..");
   }
 
   return (
@@ -64,7 +65,7 @@ export default function NoteForm({
             label="Title"
             variant="outlined"
             required
-            ref={titleRef}
+            inputRef={titleRef}
             defaultValue={title}
             error={titleError}
           />
@@ -97,7 +98,7 @@ export default function NoteForm({
           rows={15}
           fullWidth
           required
-          ref={markdownRef}
+          inputRef={markdownRef}
           defaultValue={markdown}
           error={markdownError}
         />

@@ -5,6 +5,7 @@ import { v4 as uuidV4 } from "uuid";
 import Container from "@mui/material/Container";
 import CreateNote from "./pages/CreateNote";
 import NoteList from "./pages/NoteList";
+import NoteLayout from "./components/NoteLayout";
 
 export type Note = {
   id: string;
@@ -99,9 +100,9 @@ export default function App() {
             />
           }
         />
-        <Route path="/:id">
-          <Route index element={<h1>View</h1>} />
-          <Route path="edit" element={<h1>Edit</h1>} />
+        <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
+          <Route index element={<h2>View Note</h2>} />
+          <Route path="edit" element={<h2>Edit Note</h2>} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

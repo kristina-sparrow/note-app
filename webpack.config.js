@@ -8,6 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "bundle.js",
+    publicPath: "/",
     assetModuleFilename: (pathData) => {
       const filepath = path
         .dirname(pathData.filename)
@@ -49,6 +50,7 @@ module.exports = {
   devServer: {
     static: ["src"],
     hot: true,
+    historyApiFallback: true,
   },
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
@@ -61,4 +63,5 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
   ],
+  devtool: "eval-source-map",
 };

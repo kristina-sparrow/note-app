@@ -1,3 +1,4 @@
+import React from "react";
 import NoteForm from "../components/NoteForm";
 import { NoteData, Tag } from "../App";
 
@@ -14,7 +15,7 @@ export default function CreateNote({
 }: CreateNoteProps) {
   return (
     <>
-      <h1 className="page-title">New Note</h1>
+      <h1 className="page-title">Create Note</h1>
       <NoteForm
         onSubmit={onSubmit}
         onAddTag={onAddTag}

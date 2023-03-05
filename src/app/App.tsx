@@ -8,6 +8,7 @@ import NoteList from "./pages/NoteList";
 import NoteLayout from "./components/NoteLayout";
 import ViewNote from "./pages/ViewNote";
 import EditNote from "./pages/EditNote";
+import Footer from "./components/Footer";
 
 export type Note = {
   id: string;
@@ -135,6 +136,7 @@ export default function App() {
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <Footer />
     </Container>
   );
 }

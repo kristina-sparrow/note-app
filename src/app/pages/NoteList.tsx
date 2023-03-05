@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Tag } from "../App";
 import NoteCard, { SimplifiedNote } from "../components/NoteCard";
 import Typography from "@mui/material/Typography";
@@ -6,11 +7,22 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import ReactSelect from "react-select";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
 
 type NoteListProps = {
   availableTags: Tag[];
   notes: SimplifiedNote[];
+  onDeleteTag: (id: string) => void;
+  onUpdateTag: (id: string, label: string) => void;
+};
+
+type EditTagsModalProps = {
+  open: boolean;
+  availableTags: Tag[];
+  handleClose: () => void;
   onDeleteTag: (id: string) => void;
   onUpdateTag: (id: string, label: string) => void;
 };
@@ -23,6 +35,7 @@ export default function NoteList({
 }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
@@ -41,14 +54,23 @@ export default function NoteList({
     <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="h2">Notes</Typography>
-        <Button
-          component={Link}
-          to={"/create"}
-          variant="contained"
-          color="primary"
-        >
-          Create Note
-        </Button>
+        <Stack direction="row" gap={2}>
+          <Button
+            component={Link}
+            to={"/create"}
+            variant="contained"
+            color="primary"
+          >
+            Create Note
+          </Button>
+          <Button
+            onClick={() => setModalOpen(true)}
+            variant="outlined"
+            color="primary"
+          >
+            Edit Tags
+          </Button>
+        </Stack>
       </Stack>
       <form>
         <Stack
@@ -90,6 +112,64 @@ export default function NoteList({
           />
         ))}
       </Stack>
+      <EditTagsModal
+        onUpdateTag={onUpdateTag}
+        onDeleteTag={onDeleteTag}
+        open={modalOpen}
+        handleClose={() => setModalOpen(false)}
+        availableTags={availableTags}
+      />
     </Stack>
+  );
+}
+
+function EditTagsModal({
+  availableTags,
+  handleClose,
+  open,
+  onDeleteTag,
+  onUpdateTag,
+}: EditTagsModalProps) {
+  return (
+    <Dialog open={open}>
+      <Stack
+        direction="row"
+        alignItems="flex-start"
+        justifyContent="space-between"
+        my={2}
+        mx={4}
+      >
+        <Typography variant="h4">Edit Tags</Typography>
+        <IconButton onClick={handleClose} color="primary" aria-label="close">
+          <CloseIcon />
+        </IconButton>
+      </Stack>
+      <form>
+        <Stack direction="column" gap={1} mt={1} mb={4} mx={4}>
+          {availableTags.map((tag) => (
+            <Stack
+              key={tag.id}
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              gap={1}
+            >
+              <TextField
+                value={tag.label}
+                onChange={(e) => onUpdateTag(tag.id, e.target.value)}
+              />
+              <IconButton
+                onClick={() => onDeleteTag(tag.id)}
+                color="primary"
+                size="large"
+                aria-label="delete"
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Stack>
+          ))}
+        </Stack>
+      </form>
+    </Dialog>
   );
 }

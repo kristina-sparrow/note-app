@@ -19,7 +19,7 @@ export default function EditNote({
   const note = useNote();
   return (
     <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
-      <Typography variant="h2" gutterBottom>
+      <Typography variant="h2" fontSize="50px" gutterBottom>
         Edit Note
       </Typography>
       <NoteForm

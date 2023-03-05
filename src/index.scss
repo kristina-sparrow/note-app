@@ -1,1 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+.markdown {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  h1 {
+    font-weight: 400;
+  }
+  h2 {
+    font-weight: 400;
+  }
+  h3 {
+    font-weight: 400;
+  }
+  h4 {
+    font-weight: 400;
+  }
+  h5 {
+    font-weight: 400;
+  }
+  h6 {
+    font-weight: 400;
+  }
+  p {
+    line-height: 2;
+  }
+  li {
+    line-height: 2;
+  }
+  code {
+    line-height: 1.3;
+  }
+}

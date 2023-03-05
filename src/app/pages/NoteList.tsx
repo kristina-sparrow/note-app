@@ -11,6 +11,7 @@ import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
+import Grid from "@mui/material/Grid";
 
 type NoteListProps = {
   availableTags: Tag[];
@@ -53,7 +54,9 @@ export default function NoteList({
   return (
     <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="h2">Notes</Typography>
+        <Typography variant="h2" fontSize="50px">
+          Notes
+        </Typography>
         <Stack direction="row" gap={2}>
           <Button
             component={Link}
@@ -73,45 +76,62 @@ export default function NoteList({
         </Stack>
       </Stack>
       <form>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <TextField
-            label="Title"
-            variant="outlined"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <ReactSelect
-            value={selectedTags.map((tag) => {
-              return { label: tag.label, value: tag.id };
-            })}
-            options={availableTags.map((tag) => {
-              return { label: tag.label, value: tag.id };
-            })}
-            onChange={(tags) => {
-              setSelectedTags(
-                tags.map((tag) => {
-                  return { label: tag.label, id: tag.value };
-                })
-              );
-            }}
-            isMulti
-          />
-        </Stack>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Filter by title..."
+              variant="outlined"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <ReactSelect
+              styles={{
+                control: (baseStyles) => ({
+                  ...baseStyles,
+                  fontFamily: "Roboto",
+                  padding: "9px",
+                }),
+              }}
+              placeholder="Filter by tags..."
+              value={selectedTags.map((tag) => {
+                return { label: tag.label, value: tag.id };
+              })}
+              options={availableTags.map((tag) => {
+                return { label: tag.label, value: tag.id };
+              })}
+              onChange={(tags) => {
+                setSelectedTags(
+                  tags.map((tag) => {
+                    return { label: tag.label, id: tag.value };
+                  })
+                );
+              }}
+              isMulti
+            />
+          </Grid>
+        </Grid>
       </form>
-      <Stack direction="row" spacing={3}>
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+        justifyContent="space-evenly"
+        rowSpacing={3}
+      >
         {filteredNotes.map((note) => (
-          <NoteCard
-            key={note.id}
-            id={note.id}
-            title={note.title}
-            tags={note.tags}
-          />
+          <Grid item key={note.id} xs={12} sm={5}>
+            <NoteCard
+              key={note.id}
+              id={note.id}
+              title={note.title}
+              tags={note.tags}
+            />
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
       <EditTagsModal
         onUpdateTag={onUpdateTag}
         onDeleteTag={onDeleteTag}

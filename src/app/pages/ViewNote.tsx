@@ -19,7 +19,7 @@ export default function ViewNote({ onDelete }: ViewNoteProps) {
     <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="column">
-          <Typography variant="h2" mb={2}>
+          <Typography variant="h2" fontSize="50px" mb={2}>
             {note.title}
           </Typography>
           {note.tags.length > 0 && (
@@ -60,7 +60,7 @@ export default function ViewNote({ onDelete }: ViewNoteProps) {
           </Button>
         </Stack>
       </Stack>
-      <ReactMarkdown>{note.markdown}</ReactMarkdown>
+      <ReactMarkdown className="markdown">{note.markdown}</ReactMarkdown>
     </Stack>
   );
 }

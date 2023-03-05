@@ -16,17 +16,25 @@ export type SimplifiedNote = {
 
 export default function NoteCard({ id, title, tags }: SimplifiedNote) {
   return (
-    <Card sx={{ minHeight: 150, maxWidth: 300 }} elevation={4}>
-      <CardActionArea component={Link} to={`/${id}`}>
-        <CardContent>
+    <Card elevation={3}>
+      <CardActionArea component={Link} to={`/${id}`} sx={{ height: "100%" }}>
+        <CardContent sx={{ height: "100%" }}>
           <Stack
             direction="column"
             alignItems="center"
             justifyContent="center"
-            spacing={2}
-            my={3}
+            flexWrap="wrap"
+            gap={3}
+            sx={{ height: "100%" }}
           >
-            <Typography variant="h4">{title}</Typography>
+            <Typography
+              variant="h4"
+              fontWeight={300}
+              fontSize="22px"
+              textAlign="center"
+            >
+              {title}
+            </Typography>
             {tags.length > 0 && (
               <Stack
                 direction="row"

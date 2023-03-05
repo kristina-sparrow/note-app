@@ -7,6 +7,7 @@ import { KeyboardArrowRight } from "@mui/icons-material";
 import { v4 as uuidV4 } from "uuid";
 import { NoteData, Tag } from "../App";
 import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
@@ -56,41 +57,50 @@ export default function NoteForm({
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
       <Stack direction="column" justifyContent="flex-start" spacing={3}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <TextField
-            label="Title"
-            variant="outlined"
-            required
-            inputRef={titleRef}
-            defaultValue={title}
-            error={titleError}
-          />
-          <CreatableReactSelect
-            onCreateOption={(label) => {
-              const newTag = { id: uuidV4(), label };
-              onAddTag(newTag);
-              setSelectedTags((prev) => [...prev, newTag]);
-            }}
-            value={selectedTags.map((tag) => {
-              return { label: tag.label, value: tag.id };
-            })}
-            options={availableTags.map((tag) => {
-              return { label: tag.label, value: tag.id };
-            })}
-            onChange={(tags) => {
-              setSelectedTags(
-                tags.map((tag) => {
-                  return { label: tag.label, id: tag.value };
-                })
-              );
-            }}
-            isMulti
-          />
-        </Stack>
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Title"
+              variant="outlined"
+              required
+              inputRef={titleRef}
+              defaultValue={title}
+              error={titleError}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <CreatableReactSelect
+              styles={{
+                control: (baseStyles) => ({
+                  ...baseStyles,
+                  fontFamily: "Roboto",
+                  padding: "9px",
+                }),
+              }}
+              placeholder="Add tags..."
+              onCreateOption={(label) => {
+                const newTag = { id: uuidV4(), label };
+                onAddTag(newTag);
+                setSelectedTags((prev) => [...prev, newTag]);
+              }}
+              value={selectedTags.map((tag) => {
+                return { label: tag.label, value: tag.id };
+              })}
+              options={availableTags.map((tag) => {
+                return { label: tag.label, value: tag.id };
+              })}
+              onChange={(tags) => {
+                setSelectedTags(
+                  tags.map((tag) => {
+                    return { label: tag.label, id: tag.value };
+                  })
+                );
+              }}
+              isMulti
+            />
+          </Grid>
+        </Grid>
         <TextField
           label="Body"
           variant="outlined"

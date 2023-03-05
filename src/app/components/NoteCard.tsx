@@ -36,7 +36,12 @@ export default function NoteCard({ id, title, tags }: SimplifiedNote) {
                 gap={1}
               >
                 {tags.map((tag) => (
-                  <Chip color="primary" key={tag.id} label={`${tag.label}`} />
+                  <Chip
+                    color="success"
+                    size="small"
+                    key={tag.id}
+                    label={`${tag.label}`}
+                  />
                 ))}
               </Stack>
             )}

@@ -38,64 +38,58 @@ export default function NoteList({
   }, [title, selectedTags, notes]);
 
   return (
-    <>
-      <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
+    <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Typography variant="h2">Notes</Typography>
+        <Button
+          component={Link}
+          to={"/create"}
+          variant="contained"
+          color="primary"
+        >
+          Create Note
+        </Button>
+      </Stack>
+      <form>
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Typography variant="h2">Notes</Typography>
-          <Button
-            component={Link}
-            to={"/create"}
-            variant="contained"
-            color="primary"
-          >
-            Create Note
-          </Button>
+          <TextField
+            label="Title"
+            variant="outlined"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <ReactSelect
+            value={selectedTags.map((tag) => {
+              return { label: tag.label, value: tag.id };
+            })}
+            options={availableTags.map((tag) => {
+              return { label: tag.label, value: tag.id };
+            })}
+            onChange={(tags) => {
+              setSelectedTags(
+                tags.map((tag) => {
+                  return { label: tag.label, id: tag.value };
+                })
+              );
+            }}
+            isMulti
+          />
         </Stack>
-        <form>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <TextField
-              label="Title"
-              variant="outlined"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <ReactSelect
-              value={selectedTags.map((tag) => {
-                return { label: tag.label, value: tag.id };
-              })}
-              options={availableTags.map((tag) => {
-                return { label: tag.label, value: tag.id };
-              })}
-              onChange={(tags) => {
-                setSelectedTags(
-                  tags.map((tag) => {
-                    return { label: tag.label, id: tag.value };
-                  })
-                );
-              }}
-              isMulti
-            />
-          </Stack>
-        </form>
-        <Stack direction="row" spacing={3}>
-          {filteredNotes.map((note) => (
-            <NoteCard
-              key={note.id}
-              id={note.id}
-              title={note.title}
-              tags={note.tags}
-            />
-          ))}
-        </Stack>
+      </form>
+      <Stack direction="row" spacing={3}>
+        {filteredNotes.map((note) => (
+          <NoteCard
+            key={note.id}
+            id={note.id}
+            title={note.title}
+            tags={note.tags}
+          />
+        ))}
       </Stack>
-    </>
+    </Stack>
   );
 }

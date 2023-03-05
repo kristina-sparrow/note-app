@@ -6,6 +6,7 @@ import Container from "@mui/material/Container";
 import CreateNote from "./pages/CreateNote";
 import NoteList from "./pages/NoteList";
 import NoteLayout from "./components/NoteLayout";
+import ViewNote from "./pages/ViewNote";
 
 export type Note = {
   id: string;
@@ -51,6 +52,12 @@ export default function App() {
         ...prevNotes,
         { ...data, id: uuidV4(), tagIds: tags.map((tag) => tag.id) },
       ];
+    });
+  }
+
+  function onDeleteNote(id: string) {
+    setNotes((prevNotes) => {
+      return prevNotes.filter((note) => note.id !== id);
     });
   }
 
@@ -101,7 +108,7 @@ export default function App() {
           }
         />
         <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
-          <Route index element={<h2>View Note</h2>} />
+          <Route index element={<ViewNote onDelete={onDeleteNote} />} />
           <Route path="edit" element={<h2>Edit Note</h2>} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

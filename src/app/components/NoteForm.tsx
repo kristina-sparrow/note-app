@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { v4 as uuidV4 } from "uuid";
-import { NoteData, Tag } from "../App";
+import { NoteData, Tag } from "./Main";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 

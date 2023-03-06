@@ -1,5 +1,5 @@
 import React from "react";
-import { NoteData, Tag } from "../App";
+import { NoteData, Tag } from "../components/Main";
 import { useNote } from "../components/NoteLayout";
 import NoteForm from "../components/NoteForm";
 import Stack from "@mui/material/Stack";
@@ -18,7 +18,7 @@ export default function EditNote({
 }: EditNoteProps) {
   const note = useNote();
   return (
-    <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
+    <Stack direction="column" justifyContent="flex-start" spacing={4} my={4}>
       <Typography variant="h2" fontSize="50px" gutterBottom>
         Edit Note
       </Typography>

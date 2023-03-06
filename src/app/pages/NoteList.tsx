@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Tag } from "../App";
+import { Tag } from "../components/Main";
 import NoteCard, { SimplifiedNote } from "../components/NoteCard";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -52,7 +52,7 @@ export default function NoteList({
   }, [title, selectedTags, notes]);
 
   return (
-    <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
+    <Stack direction="column" justifyContent="flex-start" spacing={4} my={4}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="h2" fontSize="50px">
           Notes

@@ -16,7 +16,7 @@ export default function ViewNote({ onDelete }: ViewNoteProps) {
   const navigate = useNavigate();
 
   return (
-    <Stack direction="column" justifyContent="flex-start" spacing={4} mt={4}>
+    <Stack direction="column" justifyContent="flex-start" spacing={4} my={4}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="column">
           <Typography variant="h2" fontSize="50px" mb={2}>

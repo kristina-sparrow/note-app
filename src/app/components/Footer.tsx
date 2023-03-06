@@ -10,7 +10,9 @@ export default function Footer() {
       alignItems="center"
       justifyContent="center"
       gap={1}
-      py={4}
+      py={2}
+      minHeight="50px"
+      className="footer"
     >
       <Typography variant="body2" fontSize={16} fontWeight={300}>
         Built by Kristina Sparrow

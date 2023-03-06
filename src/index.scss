@@ -4,6 +4,16 @@ html {
   scroll-behavior: smooth;
 }
 
+#root,
+.page-container,
+.page {
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+}
+
 .markdown {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
